@@ -1,0 +1,81 @@
+﻿@model IEnumerable<BookStore.Domain.Entites.Book>
+
+@{
+    ViewBag.Title = "Admin: All Books";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Book Index</h2>
+
+<div class="panel panel-default" >
+    
+    <div class="panel-heading">
+
+        <h3>All Books</h3>
+
+    </div>
+    <div class="panel-body">
+         
+        <table class="table table-condensed table-stripe  table-hover  table-responsive table-bordered">
+            <tr>
+ 
+                <th class="text-right">
+                    ID
+                </th>
+                <th>
+                   Title
+                </th>
+                
+                <th>
+                    Descrption
+                </th>
+                <th class="text-right">
+                    Price
+                </th>
+                <th>
+                    Specialization
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-right">
+                        @Html.DisplayFor(modelItem => item.ISBN )
+                    </td>
+
+                    <td>
+
+                        @Html.ActionLink(item.Title,"Edit" , new { item.ISBN})
+                        
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descrption)
+                    </td>
+                    <td>
+                        @item.Price.ToString("c")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Specialization)
+                    </td>
+                    <td class="text-center">
+                         
+                        @Html.ActionLink("Delete", "Delete", new { ISBN = item.ISBN }, new { @class = "btn btn-danger btn-xs" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+    <div class="panel-footer">
+        
+            @Html.ActionLink("Add New  Book", "Create",null,new { @class="btn btn-default"})
+         
+    </div>
+
+</div>

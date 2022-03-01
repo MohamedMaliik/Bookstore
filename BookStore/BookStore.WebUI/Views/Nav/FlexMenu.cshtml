@@ -1,0 +1,38 @@
+﻿@model IEnumerable<string>
+
+@{
+
+
+    bool horzoinal = (bool)(ViewContext.RouteData.Values["mobilayout"] ?? false);
+    string warpperClasses = horzoinal ? "btn-group btn-group-sm btn-group-justified" : null;
+
+}
+<
+
+    <div class="@warpperClasses">
+         
+    @Html.ActionLink("Home", "List", "Book", null,
+    new
+    {
+        @class = horzoinal ? "btn btn-default btn-sm"
+    : "btn  btn-block btn-default btn-lg"
+    })
+ 
+
+@foreach (var link in Model)
+{
+ <br />
+        @Html.RouteLink(link, new { controller = "Book", action = "List", speciliztion = link, pageeno = 1 },
+
+    new
+    {
+        @class = horzoinal ? "btn    btn-default btn-sm" : "btn btn-block btn-default btn-lg "
+
+    + ((link == ViewBag.Selecedsepc) ? "btn btn-primary" : "").ToString(),
+
+        @style = "overflow:hidden; text-overflow:ellipsis;"
+    })
+   
+}
+    </div>
+

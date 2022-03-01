@@ -1,0 +1,63 @@
+﻿@model BookStore.Domain.Entites.Book
+
+
+@{ 
+    ViewBag.Title =   Model.Title;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    HtmlHelper.ClientValidationEnabled = false;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+
+}
+
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3> @Model.Title </h3>
+    </div>
+
+    
+
+    @using (Html.BeginForm("Edit","Admin" ))
+    {
+        <div class="panel-body">
+
+            @Html.HiddenFor(b => b.ISBN)
+            @foreach (var property in ViewData.ModelMetadata.Properties)
+        {
+            if (property.PropertyName != "ISBN")
+            {
+        <div class="form-group">
+            <label> @( property.PropertyName)</label>
+        </div>
+                if (property.PropertyName == "Descrption")
+                {
+
+
+        @Html.TextArea(property.PropertyName, null, new { @class = "form-control", rows = 5 })
+
+
+                }
+
+                else 
+                
+                {
+
+        @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+
+                }
+                    @Html.ValidationMessage(property.PropertyName );
+
+            }
+
+        }
+          
+        </div>
+
+        <div class="panel-footer">
+
+            <input type="submit" value="save" class="btn btn-primary " />
+            @Html.ActionLink("Cancel and return to list ", "Index",null, new { @class = "btn btn-default" });
+        </div>
+
+    }
+</div>
